@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EditorController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UploadImageController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -35,7 +36,9 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('/editor', [EditorController::class, 'index'])->name('editor.index');
-    Route::post('/editor', [EditorController::class, 'store'])->name('editor.store');
     Route::post('/upload-image', UploadImageController::class)->name('upload-image.store');
+
+    Route::get('{slug}', [PostController::class, 'index'])->name('post.index');
+    Route::get('posts/create', [PostController::class, 'create'])->name('post.create');
+    Route::post('posts/store', [PostController::class, 'store'])->name('post.store');
 });

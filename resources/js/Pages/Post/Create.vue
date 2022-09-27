@@ -2,7 +2,7 @@
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Editor from "ckeditor5-custom-build";
 import { useForm } from "@inertiajs/inertia-vue3";
-import Button from "../Components/Button.vue";
+import Button from "@/Components/Button.vue";
 import JetInput from "@/Components/Input.vue";
 import JetInputError from "@/Components/InputError.vue";
 import JetLabel from "@/Components/Label.vue";
@@ -27,7 +27,9 @@ const editorConfig = {
 };
 
 const form = useForm({
-    editorData: "",
+    title: "",
+    slug: "",
+    description: "",
 });
 </script>
 
@@ -44,24 +46,24 @@ const form = useForm({
                 <div
                     class="bg-white overflow-hidden shadow-xl sm:rounded-sm p-2"
                 >
-                    <form @submit.prevent="form.post(route('editor.store'))">
+                    <form @submit.prevent="form.post(route('post.store'))">
                         <div class="mb-4">
                             <JetLabel for="title" value="Título" />
                             <JetInput
                                 id="name"
-                                v-model="form.name"
+                                v-model="form.title"
                                 type="text"
                                 class="mt-1 block w-full"
                                 autocomplete="name"
                             />
                             <JetInputError
-                                :message="form.errors.name"
+                                :message="form.errors.title"
                                 class="mt-2"
                             />
                         </div>
                         <ckeditor
                             :editor="editor"
-                            v-model="form.editorData"
+                            v-model="form.description"
                             :config="editorConfig"
                         >
                         </ckeditor>
